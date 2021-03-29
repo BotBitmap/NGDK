@@ -1,78 +1,77 @@
-ROMNAME=ssideki
-ROMNUM=052
+MAKEFILE_PATH=$(abspath $(lastword $(MAKEFILE_LIST)))
+MAKEFILE_DIR=$(dir $(MAKEFILE_PATH))
+NGDK=$(MAKEFILE_DIR)
+BIN=$(NGDK)/bin/
+INC=$(NGDK)/inc/
 
-SILENT=
-RES=0
+SRC=$(NGDK)/src/
+OBJ=$(NGDK)/obj/
+LIB=$(NGDK)/lib/
 
-BIN=$(NGDK)/bin
-INC=$(NGDK)/inc
-LIB=$(NGDK)/lib
-TOOLS=$(NGDK)/bin/tools
+MKDIR=mkdir
 
-SRC=src
-OBJ=obj
-OUT=out
-DATA=data
+CC=m68k-elf-gcc
+AR=m68k-elf-ar
 
-MKDIR=$(BIN)/mkdir
-CP=$(BIN)/cp
-RM=$(BIN)/rm
+SFLAGS=-O0 -m68000 -I"$(INC)"
+CFLAGS=-O1 -m68000 -I"$(INC)"
+OBJ_C= $(patsubst $(SRC)%.c,$(OBJ)%.o,$(wildcard $(SRC)*.c))
 
-CC=$(BIN)/m68k/bin/m68k-elf-gcc
-LD=$(BIN)/m68k/bin/m68k-elf-ld
+all: lib tools examples
 
-SFLAGS=-O0 -m68000 -I"$(INC)" -I"data"
-CFLAGS=-O1 -m68000 -I"$(INC)" -I"data"
-
-LFLAGS=--oformat binary -Ttext -0x00 -Tbss 0x100020 -L"$(LIB)"
-
-#SRC_S=$(wildcard $(SRC)*.s))
-OBJ_S=$(patsubst $(SRC)/%.s,$(OBJ)/%.o,$(wildcard $(SRC)/*.s))
-
-#SRC_C=$(wildcard $(SRC)*.c)
-OBJ_C=$(patsubst $(SRC)/%.c,$(OBJ)/%.o,$(wildcard $(SRC)/*.c))
-
-all: ressources build
-
-build: $(OUT) $(OBJ) _build make_rom clean
-
-_build: $(OBJ_S) $(OBJ_C)
-	$(LD) $(LFLAGS) -o $(OUT)/$(ROMNUM)-p1.bin $^ -lNGDK
-
-$(OUT):
-	$(MKDIR) $(OUT)
+$(LIB):
+	$(MKDIR) $(LIB)
 
 $(OBJ):
 	$(MKDIR) $(OBJ)
 
-$(OBJ)/%.o : $(SRC)/%.c
+lib: $(LIB) $(OBJ) $(OBJ_C)
+	$(AR) -r -s $(LIB)libNGDK.a $(OBJ_C)
+
+lib_clean:
+	$(RM) $(OBJ)*.o
+
+$(OBJ)%.o : $(SRC)%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ)/%.o : $(SRC)/%.s
-	$(CC) $(SFLAGS) -c $< -o $@
+#$(OBJ)%.o : $(SRC)%.s
+#	$(CC) $(SFLAGS) -c $< -o $@
 
-ressources:
-	$(RM) $(DATA)/*.c -f
-	$(RM) $(DATA)/*.h -f
-	$(RM) $(DATA)/*.bin -f
-	$(RM) $(DATA)/*.ktm -f
-	cd $(DATA); \
-	$(TOOLS)/RetroRes.exe $(TOOLS)
+clean: lib_clean tools_clean examples_clean
+	$(RM) $(OBJ)*.o
 
-make_rom:
-	$(CP) samples/$(ROMNUM)-v1.bin $(OUT)/$(ROMNUM)-v1.v1
-	$(CP) data/$(ROMNUM)-c1.bin $(OUT)/$(ROMNUM)-c1.c1
-	$(CP) data/$(ROMNUM)-c2.bin $(OUT)/$(ROMNUM)-c2.c2
-	$(CP) fix/$(ROMNUM)-s1.s1 $(OUT)/$(ROMNUM)-s1.s1
-	$(CP) sound/$(ROMNUM)-m1.m1 $(OUT)/$(ROMNUM)-m1.m1
-	$(CP) $(OUT)/$(ROMNUM)-p1.bin $(OUT)/$(ROMNUM)-p1.p1
-	$(TOOLS)/RomK.exe -invertng $(OUT)/$(ROMNUM)-p1.p1
-	$(TOOLS)/RomK.exe -fillrom $(OUT)/$(ROMNUM)-p1.p1 524288
-	cd $(OUT); \
-	$(TOOLS)/7z.exe a -R $(ROMNAME).zip $(ROMNUM)-p1.p1 $(ROMNUM)-m1.m1 $(ROMNUM)-v1.v1 $(ROMNUM)-s1.s1 $(ROMNUM)-c1.c1 $(ROMNUM)-c2.c2
+# TOOLS INIT
+tools_build:
+	make -C $(NGDK)/tools_src/NGextract
+	make -C $(NGDK)/tools_src/RetroConvert
+	make -C $(NGDK)/tools_src/RetroRes
+	make -C $(NGDK)/tools_src/RetroTMX
+	make -C $(NGDK)/tools_src/RomK
+	make -C $(NGDK)/tools_src/bin2c
 
-clean:
-	$(RM) $(OBJ)/*.o
+tools_clean:
+	make clean -C $(NGDK)/tools_src/NGextract
+	make clean -C $(NGDK)/tools_src/RetroConvert
+	make clean -C $(NGDK)/tools_src/RetroRes
+	make clean -C $(NGDK)/tools_src/RetroTMX
+	make clean -C $(NGDK)/tools_src/RomK
+	make clean -C $(NGDK)/tools_src/bin2c
+	rm -f $(NGDK)/bin/tools/*
 
-reset: clean
-	$(RM) $(OUT)/*.*
+tools: tools_build
+# Copying files to NGDK bin directory
+	mkdir -p                                $(NGDK)/bin/tools/
+	cp $(NGDK)/tools_src/NGextract/bin/*    $(NGDK)/bin/tools/
+	cp $(NGDK)/tools_src/RetroConvert/bin/* $(NGDK)/bin/tools/
+	cp $(NGDK)/tools_src/RetroRes/bin/*     $(NGDK)/bin/tools/
+	cp $(NGDK)/tools_src/RetroTMX/bin/*     $(NGDK)/bin/tools/
+	cp $(NGDK)/tools_src/RomK/bin/*         $(NGDK)/bin/tools/
+	cp $(NGDK)/tools_src/bin2c/bin2c        $(NGDK)/bin/tools/
+# TOOLS END
+
+# EXAMPLES INIT
+examples: lib tools
+	make -C $(NGDK)/examples
+examples_clean:
+	make clean -C $(NGDK)/examples
+# EXAMPLES END
