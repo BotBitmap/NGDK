@@ -13,7 +13,9 @@ This fork has makefiles that should compile under Linux and Windows (With MSYS2 
 3. libsdl1.2 and libsdl-image1.2, to compile the tools
 
 ## Install Ubuntu dependencies
-``apt-get install libsdl1.2-dev libsdl1.2debian libsdl-image1.2 libsdl-image1.2-dev libarchive-tools``
+```
+apt-get install libsdl1.2-dev libsdl1.2debian libsdl-image1.2 libsdl-image1.2-dev libarchive-tools
+```
 
 ## Building
 ```
