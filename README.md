@@ -24,7 +24,9 @@ make
 ```
 
 ## Running roms in MAME
-``mame $YOUR_ROM -bios $YOUR_BIOS``
+```
+mame $YOUR_ROM -bios $YOUR_BIOS
+```
 
 ## The Neo Geo has 6 ROMs
 - C1-C2 for Sprites
