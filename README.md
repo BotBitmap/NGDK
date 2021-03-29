@@ -10,7 +10,7 @@ This fork has makefiles that should compile under Linux and Windows (With MSYS2 
 ## Prerequisites
 1. bsdtar libarchive, for packing roms.
 2. m68k-elf-gcc, to compile for the m68k processor. For an easier installation, use the toolchain (https://github.com/BotBitmap/CTMZ_Toolchain)
-3. libsdl1.2 and libsdl-image1.2, for compiling the tools
+3. libsdl1.2 and libsdl-image1.2, to compile the tools
 
 ## Install Ubuntu dependencies
 ``apt-get install libsdl1.2-dev libsdl1.2debian libsdl-image1.2 libsdl-image1.2-dev libarchive-tools``
