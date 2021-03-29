@@ -3,6 +3,8 @@ SDK for Neo Geo (Beta version)
 
 Discord : https://discord.gg/2VCJN5c
 
+Fork of https://github.com/Kannagi/NGDK
+
 This fork has makefiles that should compile under Linux and Windows (With MSYS2 MinGW 64-bit/WSL)
 
 ## Prerequisites
