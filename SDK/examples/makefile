@@ -29,10 +29,7 @@ CFLAGS=-O1 -m68000 -I"$(INC)" -I"data"
 
 LFLAGS=--oformat binary -Ttext  -0x00 -Tbss 0x100020 -allow-multiple-definition -L"$(LIB)"
 
-#SRC_S=$(wildcard $(SRC)*.s))
 OBJ_S=$(patsubst $(SRC)/%.s,$(OBJ)/%.o,$(wildcard $(SRC)/*.s))
-
-#SRC_C=$(wildcard $(SRC)*.c)
 OBJ_C=$(patsubst $(SRC)/%.c,$(OBJ)/%.o,$(wildcard $(SRC)/*.c))
 
 all: ressources build
@@ -55,10 +52,6 @@ $(OBJ)/%.o : $(SRC)/%.s
 	$(CC) $(SFLAGS) -c $< -o $@
 
 ressources:
-	$(RM) $(DATA)/*.c -f
-	$(RM) $(DATA)/*.h -f
-	$(RM) $(DATA)/*.bin -f
-	$(RM) $(DATA)/*.ktm -f
 	cd $(DATA); \
 	$(TOOLS)/RetroRes $(TOOLS)
 
