@@ -1,6 +1,6 @@
 Converts a binary file into a C integer array (for inclusion in a source file)
 
-This file is part of KallistiOS
+bin2c is part of KallistiOS
 
 KOS is an unofficial development environment for the SEGA Dreamcast game console.
 
