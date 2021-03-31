@@ -80,6 +80,4 @@ clean:
 	$(RM) -f $(DATA)/*.c
 	$(RM) -f $(DATA)/*.h
 	$(RM) -f $(DATA)/*.ktm
-
-reset: clean
-	$(RM) $(OUT)/*.*
+	$(RM) $(OUT)/*
