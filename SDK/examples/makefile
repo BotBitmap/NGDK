@@ -37,7 +37,7 @@ OBJ_C=$(patsubst $(SRC)/%.c,$(OBJ)/%.o,$(wildcard $(SRC)/*.c))
 
 all: ressources build
 
-build: $(OUT) $(OBJ) _build make_rom clean
+build: $(OUT) $(OBJ) _build make_rom
 
 _build: $(OBJ_S) $(OBJ_C)
 	$(LD) $(LFLAGS) -o $(OUT)/$(ROMNUM)-p1.bin $^ -lNGDK
@@ -76,6 +76,10 @@ make_rom:
 
 clean:
 	$(RM) -f $(OBJ)/*.o
+	$(RM) -f $(DATA)/*.bin
+	$(RM) -f $(DATA)/*.c
+	$(RM) -f $(DATA)/*.h
+	$(RM) -f $(DATA)/*.ktm
 
 reset: clean
 	$(RM) $(OUT)/*.*

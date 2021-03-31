@@ -7,12 +7,12 @@ Fork of https://github.com/Kannagi/NGDK
 
 This fork has makefiles that should compile under Linux and Windows (With MSYS2 MinGW 64-bit/WSL)
 
-## Prerequisites
-1. bsdtar libarchive, for packing roms.
-2. m68k-elf-gcc, to compile for the m68k processor. For an easier installation, use the toolchain (https://github.com/BotBitmap/CTMZ_Toolchain)
-3. libsdl1.2 and libsdl-image1.2, to compile the tools
+## Dependencies
+1. m68k-elf-gcc (To compile for the m68k processor) For an easier installation, use the toolchain (https://github.com/BotBitmap/CTMZ_Toolchain)
+2. bsdtar libarchive (For packing roms)
+3. libsdl1.2 and libsdl-image1.2, (To compile the tools)
 
-## Install Ubuntu dependencies
+Install Ubuntu dependencies
 ```
 apt-get install libsdl1.2-dev libsdl1.2debian libsdl-image1.2 libsdl-image1.2-dev libarchive-tools
 ```

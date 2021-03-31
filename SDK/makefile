@@ -34,9 +34,6 @@ lib_clean:
 $(OBJ)%.o : $(SRC)%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-#$(OBJ)%.o : $(SRC)%.s
-#	$(CC) $(SFLAGS) -c $< -o $@
-
 clean: lib_clean tools_clean examples_clean
 	$(RM) $(OBJ)*.o
 
