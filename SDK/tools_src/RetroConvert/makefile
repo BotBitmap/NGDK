@@ -25,58 +25,50 @@ RCFLAGS_BIN = $(RCFLAGS)
 LIBDIR_BIN = $(LIBDIR)
 LIB_BIN = $(LIB)
 LDFLAGS_BIN = $(LDFLAGS) -s
-OBJDIR_BIN = obj
 DEP_BIN = 
 OUT_BIN = bin/RetroConvert
 
-OBJ_BIN = $(OBJDIR_BIN)/main.o $(OBJDIR_BIN)/md.o $(OBJDIR_BIN)/nes.o $(OBJDIR_BIN)/ng.o $(OBJDIR_BIN)/palette.o $(OBJDIR_BIN)/pce.o $(OBJDIR_BIN)/sms.o $(OBJDIR_BIN)/snes.o $(OBJDIR_BIN)/tilemap.o
+OBJ_BIN = main.o md.o nes.o ng.o palette.o pce.o sms.o snes.o tilemap.o gb.o
 
-all: bin
+all: $(OUT_BIN)
 
 clean: clean_bin
 
-before_bin: 
-	test -d bin || mkdir -p bin
-	test -d $(OBJDIR_BIN) || mkdir -p $(OBJDIR_BIN)
+$(OUT_BIN): $(OBJ_BIN)
+	mkdir -p bin
+	$(LD) $(LIBDIR_BIN) -o $(OUT_BIN) $(OBJ_BIN) $(LDFLAGS_BIN) $(LIB_BIN)
 
-after_bin: 
+main.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/main.c -o main.o
 
-bin: before_bin out_bin after_bin
+md.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/md.c -o md.o
 
-out_bin: before_bin $(OBJ_BIN) $(DEP_BIN)
-	$(LD) $(LIBDIR_BIN) -o $(OUT_BIN) $(OBJ_BIN)  $(LDFLAGS_BIN) $(LIB_BIN)
+nes.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/nes.c -o nes.o
 
-$(OBJDIR_BIN)/main.o: main.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c main.c -o $(OBJDIR_BIN)/main.o
+ng.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/ng.c -o ng.o
 
-$(OBJDIR_BIN)/md.o: md.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c md.c -o $(OBJDIR_BIN)/md.o
+palette.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/palette.c -o palette.o
 
-$(OBJDIR_BIN)/nes.o: nes.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c nes.c -o $(OBJDIR_BIN)/nes.o
+pce.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/pce.c -o pce.o
 
-$(OBJDIR_BIN)/ng.o: ng.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c ng.c -o $(OBJDIR_BIN)/ng.o
+sms.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/sms.c -o sms.o
 
-$(OBJDIR_BIN)/palette.o: palette.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c palette.c -o $(OBJDIR_BIN)/palette.o
+snes.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/snes.c -o snes.o
 
-$(OBJDIR_BIN)/pce.o: pce.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c pce.c -o $(OBJDIR_BIN)/pce.o
+gb.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/gb.c -o gb.o
 
-$(OBJDIR_BIN)/sms.o: sms.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c sms.c -o $(OBJDIR_BIN)/sms.o
-
-$(OBJDIR_BIN)/snes.o: snes.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c snes.c -o $(OBJDIR_BIN)/snes.o
-
-$(OBJDIR_BIN)/tilemap.o: tilemap.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c tilemap.c -o $(OBJDIR_BIN)/tilemap.o
+tilemap.o:
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/tilemap.c -o tilemap.o
 
 clean_bin: 
-	rm -f $(OBJ_BIN) $(OUT_BIN)
+	rm -rf $(OBJ_BIN) $(OUT_BIN)
 	rm -rf bin
-	rm -rf $(OBJDIR_BIN)
-
-.PHONY: before_bin after_bin clean_bin
 

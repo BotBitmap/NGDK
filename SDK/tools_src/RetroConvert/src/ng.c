@@ -11,62 +11,62 @@
 int ng_write_pal(FILE *file,SDL_Surface *image,unsigned char *palette,int ncolor,int mode)
 {
 	int i,n;
-    int psize = 0;
-    int color;
-    int ngpal[4];
+	int psize = 0;
+	int color;
+	int ngpal[4];
 
-    int size = image->w*image->h*image->format->BytesPerPixel;
-    unsigned char *pixel = image->pixels;
+	int size = image->w*image->h*image->format->BytesPerPixel;
+	unsigned char *pixel = image->pixels;
 
-    if(mode == 3)
-    {
-        n = 0;
-        for(i = 0;i < size;i += image->format->BytesPerPixel)
-        {
-            palette[n+0] = pixel[i+0];
-            palette[n+1] = pixel[i+1];
-            palette[n+2] = pixel[i+2];
-            n +=3;
-            if(n >= 0x300) break;
-        }
-        ncolor = n/3;
-    }
+	if(mode == 3)
+	{
+		n = 0;
+		for(i = 0;i < size;i += image->format->BytesPerPixel)
+		{
+			palette[n+0] = pixel[i+0];
+			palette[n+1] = pixel[i+1];
+			palette[n+2] = pixel[i+2];
+			n +=3;
+			if(n >= 0x300) break;
+		}
+		ncolor = n/3;
+	}
 
 	for(i = 0;i < ncolor;i++)
-    {
-        n = i*3;
+	{
+		n = i*3;
 
-        ngpal[0] = palette[n+0]>>3;
-        ngpal[1] = palette[n+1]>>3;
-        ngpal[2] = palette[n+2]>>3;
+		ngpal[0] = palette[n+0]>>3;
+		ngpal[1] = palette[n+1]>>3;
+		ngpal[2] = palette[n+2]>>3;
 
-        color = ( (ngpal[0]& 0x1E) >> 1) + ( (ngpal[1]& 0x1E) << 3) + ( (ngpal[2]& 0x1E) << 7);
-        color += ( (ngpal[0] & 0x01) << 12) + ((ngpal[1] & 0x01) << 13) + ((ngpal[0] & 0x01) << 14);
+		color = ( (ngpal[0]& 0x1E) >> 1) + ( (ngpal[1]& 0x1E) << 3) + ( (ngpal[2]& 0x1E) << 7);
+		color += ( (ngpal[0] & 0x01) << 12) + ((ngpal[1] & 0x01) << 13) + ((ngpal[0] & 0x01) << 14);
 
-        if(i == 16)
+		if(i == 16)
 		{
 			fputc(0,file);
 			fputc(0,file);
 			psize += 2;
 		}
 
-        fputc(color>>8,file);
-        fputc(color,file);
+		fputc(color>>8,file);
+		fputc(color,file);
 
-        psize += 2;
-    }
+		psize += 2;
+	}
 
-    return psize;
+	return psize;
 }
 
 
 int ng_write_rom(FILE *file,SDL_Surface *image,unsigned char *palette,int ncolor,int type)
 {
-    int casex,casey;
-    int tiles[64];
-    int ngpixel[4];
-    int quad = 0,quadx,quady,x,y,i,l,ext = 0,size = 0;
-    unsigned char *pixel = image->pixels;
+	int casex,casey;
+	int tiles[64];
+	int ngpixel[4];
+	int quad = 0,quadx,quady,x,y,i,l,ext = 0,size = 0;
+	unsigned char *pixel = image->pixels;
 
 
 	if(ncolor > 16) ext = 1;
@@ -150,6 +150,7 @@ int ng_write_rom(FILE *file,SDL_Surface *image,unsigned char *palette,int ncolor
 				{
 					quad = 0;
 					casey += 16;
+
 					if(casey+16 > image->h)
 					{
 						casex += 16;
@@ -181,5 +182,5 @@ int ng_write_rom(FILE *file,SDL_Surface *image,unsigned char *palette,int ncolor
 	}
 
 
-    return size;
+	return size;
 }

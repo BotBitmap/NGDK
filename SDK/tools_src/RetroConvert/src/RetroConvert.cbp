@@ -12,15 +12,17 @@
 				<Option object_output="obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters=" -ng tile1.png" />
+				<Option parameters="-tilemap  Billy.png" />
 				<Compiler>
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-fexceptions" />
 					<Add option="-O3" />
+					<Add option="-w" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-lm" />
 				</Linker>
 			</Target>
 			<Target title="bin (Windows)">
@@ -47,6 +49,9 @@
 			<Add library="SDL" />
 			<Add library="SDL_image" />
 		</Linker>
+		<Unit filename="gb.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -76,10 +81,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
-			<envvars />
-			<code_completion />
 			<lib_finder disable_auto="1" />
-			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
