@@ -73,4 +73,4 @@ clean:
 	$(RM) -f $(DATA)/*.c
 	$(RM) -f $(DATA)/*.h
 	$(RM) -f $(DATA)/*.ktm
-	$(RM) $(OUT)/*
+	$(RM) -f $(OUT)/*
