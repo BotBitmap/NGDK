@@ -9,9 +9,10 @@ This fork has makefiles that should compile under Linux and Windows (With MSYS2 
 
 ## Dependencies
 1. m68k-elf-gcc (To target the m68k processor) For an easier installation, use the toolchain (https://github.com/BotBitmap/CTMZ_Toolchain)
-2. A C compiler targetting your machine of your choice (EX: GCC/Clang, to compile the tools)
+2. A C compiler of your choice targeting your machine (EX: GCC/Clang, to compile the tools)
 5. libsdl1.2 and libsdl-image1.2 (To compile the tools)
 4. bsdtar libarchive (For packing roms)
+5. make (To compile everything)
 
 Ubuntu dependencies (Except for m68k-elf-gcc)
 ```
