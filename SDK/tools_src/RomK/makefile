@@ -25,34 +25,28 @@ RCFLAGS_BIN = $(RCFLAGS)
 LIBDIR_BIN = $(LIBDIR)
 LIB_BIN = $(LIB)
 LDFLAGS_BIN = $(LDFLAGS)
-OBJDIR_BIN = obj
 DEP_BIN = 
 OUT_BIN = bin/RomK
 
-OBJ_BIN = $(OBJDIR_BIN)/main.o
+OBJ_BIN = main.o
 
 all: bin
 
 clean: clean_bin
 
-before_bin: 
-	test -d bin || mkdir -p bin
-	test -d $(OBJDIR_BIN) || mkdir -p $(OBJDIR_BIN)
+bin: $(OUT_BIN) after_bin
 
-after_bin: 
+$(OUT_BIN):  $(OBJ_BIN) $(DEP_BIN)
+	mkdir -p bin
+	$(LD) $(LIBDIR_BIN) -o $(OUT_BIN) $(OBJ_BIN) $(LDFLAGS_BIN) $(LIB_BIN)
 
-bin: before_bin out_bin after_bin
-
-out_bin: before_bin $(OBJ_BIN) $(DEP_BIN)
-	$(LD) $(LIBDIR_BIN) -o $(OUT_BIN) $(OBJ_BIN)  $(LDFLAGS_BIN) $(LIB_BIN)
-
-$(OBJDIR_BIN)/main.o: main.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c main.c -o $(OBJDIR_BIN)/main.o
+main.o: main.c
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c main.c -o main.o
 
 clean_bin: 
 	rm -f $(OBJ_BIN) $(OUT_BIN)
 	rm -rf bin
 	rm -rf $(OBJDIR_BIN)
 
-.PHONY: before_bin after_bin clean_bin
+.PHONY: after_bin clean_bin
 

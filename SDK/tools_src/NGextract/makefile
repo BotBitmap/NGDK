@@ -29,30 +29,27 @@ OBJDIR_CONSOLE = obj
 DEP_CONSOLE = 
 OUT_CONSOLE = bin/neogeoextract
 
-OBJ_CONSOLE = $(OBJDIR_CONSOLE)/main.o
+OBJ_CONSOLE = main.o
 
 all: console
 
 clean: clean_console
 
-before_console: 
-	test -d bin || mkdir -p bin
-	test -d $(OBJDIR_CONSOLE) || mkdir -p $(OBJDIR_CONSOLE)
-
 after_console: 
 
-console: before_console out_console after_console
+console: $(OUT_CONSOLE) after_console
 
-out_console: before_console $(OBJ_CONSOLE) $(DEP_CONSOLE)
+$(OUT_CONSOLE):  $(OBJ_CONSOLE) $(DEP_CONSOLE)
+	mkdir -p bin
 	$(LD) $(LIBDIR_CONSOLE) -o $(OUT_CONSOLE) $(OBJ_CONSOLE)  $(LDFLAGS_CONSOLE) $(LIB_CONSOLE)
 
-$(OBJDIR_CONSOLE)/main.o: main.c
-	$(CC) $(CFLAGS_CONSOLE) $(INC_CONSOLE) -c main.c -o $(OBJDIR_CONSOLE)/main.o
+main.o: main.c
+	$(CC) $(CFLAGS_CONSOLE) $(INC_CONSOLE) -c main.c -o main.o
 
 clean_console: 
 	rm -f $(OBJ_CONSOLE) $(OUT_CONSOLE)
 	rm -rf bin
 	rm -rf $(OBJDIR_CONSOLE)
 
-.PHONY: before_console after_console clean_console
+.PHONY: after_console clean_console
 

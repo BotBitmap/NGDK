@@ -38,34 +38,34 @@ $(OUT_BIN): $(OBJ_BIN)
 	mkdir -p bin
 	$(LD) $(LIBDIR_BIN) -o $(OUT_BIN) $(OBJ_BIN) $(LDFLAGS_BIN) $(LIB_BIN)
 
-main.o:
+main.o: src/main.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/main.c -o main.o
 
-md.o:
+md.o: src/md.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/md.c -o md.o
 
-nes.o:
+nes.o: src/nes.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/nes.c -o nes.o
 
-ng.o:
+ng.o: src/ng.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/ng.c -o ng.o
 
-palette.o:
+palette.o: src/palette.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/palette.c -o palette.o
 
-pce.o:
+pce.o: src/pce.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/pce.c -o pce.o
 
-sms.o:
+sms.o: src/sms.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/sms.c -o sms.o
 
-snes.o:
+snes.o: src/snes.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/snes.c -o snes.o
 
-gb.o:
+gb.o: src/gb.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/gb.c -o gb.o
 
-tilemap.o:
+tilemap.o: src/tilemap.c
 	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c src/tilemap.c -o tilemap.o
 
 clean_bin: 

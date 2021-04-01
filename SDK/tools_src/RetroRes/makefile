@@ -29,7 +29,7 @@ OBJDIR_BIN = obj
 DEP_BIN = 
 OUT_BIN = bin/RetroRes
 
-OBJ_BIN = $(OBJDIR_BIN)/aura.o $(OBJDIR_BIN)/main.o
+OBJ_BIN = aura.o main.o
 
 all: bin
 
@@ -41,21 +41,21 @@ before_bin:
 
 after_bin: 
 
-bin: before_bin out_bin after_bin
+bin: $(OUT_BIN) after_bin
 
-out_bin: before_bin $(OBJ_BIN) $(DEP_BIN)
+$(OUT_BIN): $(OBJ_BIN) $(DEP_BIN)
+	mkdir -p bin
 	$(LD) $(LIBDIR_BIN) -o $(OUT_BIN) $(OBJ_BIN)  $(LDFLAGS_BIN) $(LIB_BIN)
 
-$(OBJDIR_BIN)/aura.o: aura.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c aura.c -o $(OBJDIR_BIN)/aura.o
+aura.o: aura.c
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c aura.c -o aura.o
 
-$(OBJDIR_BIN)/main.o: main.c
-	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c main.c -o $(OBJDIR_BIN)/main.o
+main.o: main.c
+	$(CC) $(CFLAGS_BIN) $(INC_BIN) -c main.c -o main.o
 
 clean_bin: 
 	rm -f $(OBJ_BIN) $(OUT_BIN)
 	rm -rf bin
-	rm -rf $(OBJDIR_BIN)
 
-.PHONY: before_bin after_bin clean_bin
+.PHONY: after_bin clean_bin
 
