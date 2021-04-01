@@ -12,11 +12,11 @@ This fork has makefiles that should compile under Linux and Windows (With MSYS2 
 2. bsdtar libarchive (For packing roms)
 3. libsdl1.2 and libsdl-image1.2 (To compile the tools)
 
-Ubuntu dependencies - Except for m68k-elf-gcc
+Ubuntu dependencies (Except for m68k-elf-gcc)
 ```
 apt-get install make libarchive-tools libsdl1.2-dev libsdl1.2debian libsdl-image1.2 libsdl-image1.2-dev
 ```
-Windows dependencies (MSYS2 MinGW 64-bit) - Except for m68k-elf-gcc
+Windows (MSYS2 MinGW 64-bit) dependencies (Except for m68k-elf-gcc)
 ```
 pacman -S make mingw-w64-x86_64-libarchive mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_image
 ```
