@@ -1,10 +1,12 @@
 # bin2c util
 # (c)2000 Dan Potter
 
+CC=CC
+
 all: bin2c
 
 bin2c:
-	gcc -o bin2c bin2c.c
+	$(CC) -o bin2c bin2c.c
 
 clean:
 	-rm -f bin2c
