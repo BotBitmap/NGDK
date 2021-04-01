@@ -11,3 +11,4 @@ bin2c:
 clean:
 	-rm -f bin2c
 
+.PHONY: clean
