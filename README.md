@@ -16,11 +16,11 @@ This fork has makefiles that should compile under Linux and Windows (With MSYS2 
 
 Ubuntu dependencies (Except for m68k-elf-gcc)
 ```
-apt-get install gcc make libarchive-tools libsdl1.2debian libsdl1.2-dev libsdl-image1.2 libsdl-image1.2-dev
+apt-get install make gcc libarchive-tools libsdl1.2debian libsdl1.2-dev libsdl-image1.2 libsdl-image1.2-dev
 ```
 Windows (MSYS2 MinGW 64-bit) dependencies (Except for m68k-elf-gcc)
 ```
-pacman -S mingw-w64-x86_64-gcc make libarchive mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_image
+pacman -S make mingw-w64-x86_64-gcc mingw-w64-x86_64-libarchive mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_image
 ```
 
 ## Building
