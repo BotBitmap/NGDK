@@ -20,7 +20,7 @@ apt-get install gcc make libarchive-tools libsdl1.2debian libsdl1.2-dev libsdl-i
 ```
 Windows (MSYS2 MinGW 64-bit) dependencies (Except for m68k-elf-gcc)
 ```
-pacman -S mingw-w64-x86_64-gcc make mingw-w64-x86_64-libarchive mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_image
+pacman -S mingw-w64-x86_64-gcc make libarchive mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_image
 ```
 
 ## Building
