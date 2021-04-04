@@ -1,7 +1,7 @@
 # bin2c util
 # (c)2000 Dan Potter
 
-CC=CC
+CC=cc
 
 all: bin2c
 

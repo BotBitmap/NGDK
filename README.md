@@ -1,11 +1,13 @@
-# NGDK_FORK
+# NGDK
 SDK for Neo Geo (Beta version)
 
 Discord : https://discord.gg/2VCJN5c
 
 Fork of https://github.com/Kannagi/NGDK
 
-This fork has makefiles that should compile under Linux and Windows (With MSYS2 MinGW 64-bit/WSL)
+This repository will only be used for the source code, for a binary installation, please use: https://github.com/BrokeStudio/NGDK  
+
+NGDK has makefiles that should compile under Linux and Windows (With MSYS2 MinGW 64-bit/WSL)
 
 ## Dependencies
 1. m68k-elf-gcc (To target the m68k processor) For an easier installation, use the toolchain (https://github.com/BotBitmap/CTMZ_Toolchain)
@@ -28,6 +30,22 @@ pacman -S make mingw-w64-x86_64-gcc mingw-w64-x86_64-libarchive mingw-w64-x86_64
 cd SDK
 make
 ```
+
+## Code::Blocks
+
+### Config
+- The CodeBlock folder, has screens and text files to configure 
+
+### Windows
+- To run Winkawaws in Code::Block, you have to go to Tools -> configure tools -> add
+- Name : WinKawaks
+- executable : "C:\SDK\NeoGeo\emu\WinKawaks.exe"
+- Tools -> WinKawaks
+
+### Linux
+- To run gngeo in Code::Block , Project -> Set program arguments -> bin(Linux)
+- & gngeo --rompath=yourpath ssideki
+
 
 ## Running roms in MAME
 ```

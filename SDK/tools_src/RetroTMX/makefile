@@ -1,6 +1,6 @@
 WORKDIR = `pwd`
 
-CC = CC
+CC = cc
 
 INC = 
 CFLAGS = -Wall

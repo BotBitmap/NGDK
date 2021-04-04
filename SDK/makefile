@@ -1,21 +1,44 @@
-MAKEFILE_PATH=$(abspath $(lastword $(MAKEFILE_LIST)))
-MAKEFILE_DIR=$(dir $(MAKEFILE_PATH))
-NGDK=$(MAKEFILE_DIR)
-BIN=$(NGDK)/bin/
-INC=$(NGDK)/inc/
+# MIT License
+#  
+# Copyright (c) 2019 Kannagi
+# Copyright (c) 2021 Arthur Rodrigues de Carvalho Chagas
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#  
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#  
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
-SRC=$(NGDK)/src/
-OBJ=$(NGDK)/obj/
-LIB=$(NGDK)/lib/
+MAKEFILE_PATH = $(abspath $(lastword $(MAKEFILE_LIST)))
+MAKEFILE_DIR = $(dir $(MAKEFILE_PATH))
+NGDK = $(MAKEFILE_DIR)
+BIN = $(NGDK)/bin/
+INC = $(NGDK)/inc/
 
-MKDIR=mkdir
+SRC = $(NGDK)/src/
+OBJ = $(NGDK)/obj/
+LIB = $(NGDK)/lib/
 
-CC=m68k-elf-gcc
-AR=m68k-elf-ar
+MKDIR = mkdir
 
-SFLAGS=-O0 -m68000 -I"$(INC)"
-CFLAGS=-O1 -m68000 -I"$(INC)"
-OBJ_C= $(patsubst $(SRC)%.c,$(OBJ)%.o,$(wildcard $(SRC)*.c))
+CC = m68k-elf-gcc
+AR = m68k-elf-ar
+
+SFLAGS = -O0 -m68000 -I"$(INC)"
+CFLAGS = -O1 -m68000 -I"$(INC)"
+OBJ_C = $(patsubst $(SRC)%.c,$(OBJ)%.o,$(wildcard $(SRC)*.c))
 
 all: lib tools examples
 
@@ -30,6 +53,7 @@ lib: $(LIB) $(OBJ) $(OBJ_C)
 
 lib_clean:
 	$(RM) $(OBJ)*.o
+	$(RM) -rf $(LIB)libNGDK.a
 
 $(OBJ)%.o : $(SRC)%.c
 	$(CC) $(CFLAGS) -c $< -o $@

@@ -1,12 +1,12 @@
 WORKDIR = `pwd`
 
-CC = CC
+CC = cc
 
 INC = 
 CFLAGS = 
 RESINC = 
 LIBDIR = 
-LIB = -lSDL -lSDL_image
+LIB = -lSDL -lSDL_image -lm
 LDFLAGS = -s
 
 INC_BIN = $(INC)
